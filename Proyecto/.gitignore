@@ -1,0 +1,15 @@
+# Ignorar carpetas de compilación
+bin/
+obj/
+
+# Ignorar archivos de usuario específicos de Visual Studio
+*.user
+*.suo
+*.vscode/
+
+# Ignorar paquetes NuGet descargados
+packages/
+
+# Ignorar dependencias temporales
+*.log
+*.tmp

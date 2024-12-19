@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota de Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 24px;
+                color: #FF6347; /* Naranja fuerte */
+            }
+
+            .header h2 {
+                margin: 0;
+                font-size: 18px;
+                color: #555;
+            }
+
+        .info {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+            .info p {
+                margin: 5px 0;
+            }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #FF6347; /* Naranja fuerte */
+                color: white;
+                text-align: center;
+            }
+
+        .totals {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+            .totals p {
+                font-size: 16px;
+                margin: 5px 0;
+            }
+
+            .totals .total {
+                font-size: 18px;
+                font-weight: bold;
+                color: #FF6347; /* Naranja fuerte */
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <h1>Tienda Mundo Juguete</h1>
+            <h2>Nota de Compra</h2>
+        </div>
+
+        <div class="info">
+            <p><strong>Fecha y Hora:</strong> {{FechaHora}}</p>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{Productos}}
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <p><strong>Subtotal:</strong> {{Subtotal}}</p>
+            <p><strong>Impuestos (6%):</strong> {{Impuestos}}</p>
+            <p class="total"><strong>Total:</strong> {{Total}}</p>
+        </div>
+    </div>
+    <canvas id="watermarkCanvas" style="display: none;"></canvas>
+
+    <script>
+        // Función para agregar una marca de agua a una imagen
+        function addWatermark(img, watermarkImg) {
+            const canvas = document.getElementById('watermarkCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Ajusta el tamaño del canvas a la imagen
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // Dibuja la imagen en el canvas
+            ctx.drawImage(img, 0, 0);
+
+            // Dibuja la marca de agua en la esquina inferior derecha (ajusta la posición y tamaño)
+            ctx.drawImage(watermarkImg, canvas.width - watermarkImg.width - 10, canvas.height - watermarkImg.height - 10);
+
+            return canvas.toDataURL();
+        }
+
+        // Obtén la imagen de la nota de compra y la marca de agua
+        const noteImage = document.querySelector('.container'); // Ajusta el selector si es necesario
+        const watermarkImage = new Image();
+        watermarkImage.src = 'ProyectoFinalP2\ProyectoFinalP2\Resources\MJ.jpg'; // Reemplaza con la ruta correcta
+
+        watermarkImage.onload = () => {
+            const dataURL = addWatermark(noteImage, watermarkImage);
+
+            // Crea un nuevo elemento img para mostrar la imagen con la marca de agua
+            const imgElement = document.createElement('img');
+            imgElement.src = dataURL;
+
+            // Agrega la nueva imagen al cuerpo del documento (puedes ajustar la posición)
+            document.body.appendChild(imgElement);
+        };
+    </script>
+</body>
+</html>
